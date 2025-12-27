@@ -5,5 +5,5 @@ export const countriesAPI = axios.create({
 })
 
 export const weatherAPI = axios.create({
-    baseURL: "https://openweathermap.org/api"
+    baseURL: "https://api.openweathermap.org/data/2.5"
 })

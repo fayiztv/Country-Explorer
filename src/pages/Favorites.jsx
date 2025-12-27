@@ -1,25 +1,17 @@
-import { useEffect, useState } from "react";
-import { countriesAPI } from "../services/api";
-import SearchBar from "../components/SearhBar";
-import Filters from "../components/Filters";
+import { useState } from "react";
 import CountryCard from "../components/CountryCard";
+import Filters from "../components/Filters";
+import SearchBar from "../components/SearhBar";
+import { useFavorites } from "../context/useFavorites";
 
-function CountryList() {
-  const [countries, setCountries] = useState([]);
+const Favorites = () => {
+  const { favorites } = useFavorites();
   const [search, setSearch] = useState("");
   const [region, setRegion] = useState("");
   const [population, setPopulation] = useState("");
   const [page, setPage] = useState(1);
 
-  useEffect(() => {
-    countriesAPI
-      .get(
-        "/all?fields=name,flags,capital,currencies,languages,region,subregion,population,timezones,cca3"
-      )
-      .then((res) => setCountries(res.data));
-  }, []);
-
-  const filtered = countries
+  const filtered = favorites
     .filter((c) => c.name.common.toLowerCase().includes(search.toLowerCase()))
     .filter((c) => (region ? c.region === region : true))
     .filter((c) => {
@@ -38,8 +30,21 @@ function CountryList() {
 
   const totalPages = Math.ceil(filtered.length / itemsPerPage);
 
+  if (favorites.length === 0) {
+    return (
+      <div className="p-4 text-center">
+        <h1 className="text-xl font-bold mb-2">Favorites</h1>
+        <p className="text-gray-500">
+          You haven’t added any favorite countries yet.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="p-4">
+      <h1 className="text-xl font-bold mb-4">Favorites ❤️</h1>
+
       <div className="flex justify-between pb-4">
         <SearchBar
           value={search}
@@ -88,13 +93,13 @@ function CountryList() {
         <button
           onClick={() => setPage((p) => p + 1)}
           disabled={page >= totalPages}
-          className="disabled:cursor-not-allowed disabled:opacity-50"
+          className="disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Next
         </button>
       </div>
     </div>
   );
-}
+};
 
-export default CountryList;
+export default Favorites;

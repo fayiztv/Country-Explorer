@@ -17,7 +17,7 @@ const CountryCard = ({ country }) => {
 
       <div className="flex justify-between mt-2">
         <button
-          className="text-blue-600"
+          className="text-cyan-600"
           onClick={() => navigate(`/country/${country.cca3}`)}
         >
           View
@@ -28,7 +28,7 @@ const CountryCard = ({ country }) => {
             fav ? removeFavs(country.cca3) : addFavs(country)
           }
         >
-          {fav ? "★" : "☆"}
+          {fav ? "❤️" : "🤍"}
         </button>
       </div>
     </div>
