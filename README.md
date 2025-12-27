@@ -1,16 +1,112 @@
-# React + Vite
+# 🌍 Country Explorer Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple responsive React application that allows users to explore country data, view detailed information, check current weather, and manage favorite countries.
 
-Currently, two official plugins are available:
+Built as part of a React Developer machine test.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🚀 Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React (Vite)
+- JavaScript (ES6+)
+- Tailwind CSS
+- React Router
+- Axios
+- Context API
+- LocalStorage
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## ⚙️ Setup Instructions
+
+### 1️⃣ Clone the repository
+
+git clone https://github.com/fayiztv/Country-Explorer
+cd country-explorer
+
+### 2️⃣ Install dependencies
+npm install
+
+### 3️⃣ Start the development server
+npm run dev
+
+### The application will run at: http://localhost:5173
+
+---------------
+
+### 🔑 API Key Configuration
+
+This project uses the OpenWeatherMap API for fetching weather data.
+
+Steps to configure:
+
+1 - Create a free account at
+https://openweathermap.org/api
+
+2 - Generate an API key
+
+3 - Create a .env file in the project root: VITE_WEATHER_API_KEY=your_api_key_here
+
+4 - Restart the dev server after adding the key: npm run dev
+
+----------------
+
+### ✨ Features
+
+✅ Core Features
+
+ - Fetch and display all countries using REST Countries API
+
+ - Country card view with:
+  Flag
+  Country name
+  Capital
+  Region
+  Population
+
+ - Pagination (10 countries per page)
+
+ - Search countries by name
+
+ - Filter countries by:
+  Region
+  Population range
+
+ - Country details page with:
+  Flag (large view)
+  Capital
+  Region & Sub-region
+  Population
+  Languages
+  Time zones
+
+ - Weather information for the capital city:
+  Temperature
+  Weather condition
+  Humidity
+  Wind speed
+
+ - Favorites feature:
+  Mark / unmark countries
+  Persisted using LocalStorage
+  Separate Favorites page
+
+----------------
+
+### ⭐ Bonus Features
+
+ - Debounced search input for better performance
+
+ - Client-side API caching to avoid refetching same data
+
+ - Loading states and error handling (invalid city, rate limit)
+
+ - Fully responsive UI (mobile & desktop)
+
+------------------
+
+### 📌 Author
+
+Muhammed Fayiz T V
+React / MERN Stack Developer
