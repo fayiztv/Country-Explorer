@@ -6,30 +6,43 @@ import CountryCard from "../components/CountryCard";
 
 function CountryList() {
   const [countries, setCountries] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
   const [search, setSearch] = useState("");
+
   const [region, setRegion] = useState("");
   const [population, setPopulation] = useState("");
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-  const fetchCountries = async () => {
-    // Checck cache first
-    if (apiCache.countries) {
-      setCountries(apiCache.countries);
-      return;
-    }
+  const timer = setTimeout(() => {
+    setSearch(searchInput);
+  }, 500); // 500ms debounce
 
-    try {
-      const res = await countriesAPI.get("/all?fields=name,flags,capital,currencies,languages,region,subregion,population,timezones,cca3");
-      apiCache.countries = res.data; // store in cache
-      setCountries(res.data);
-    } catch (error) {
-      console.error("Failed to fetch countries", error);
-    }
-  };
+  return () => clearTimeout(timer);
+}, [searchInput]);
 
-  fetchCountries();
-}, []);
+
+  useEffect(() => {
+    const fetchCountries = async () => {
+      // Checck cache first
+      if (apiCache.countries) {
+        setCountries(apiCache.countries);
+        return;
+      }
+
+      try {
+        const res = await countriesAPI.get(
+          "/all?fields=name,flags,capital,currencies,languages,region,subregion,population,timezones,cca3"
+        );
+        apiCache.countries = res.data; // store in cache
+        setCountries(res.data);
+      } catch (error) {
+        console.error("Failed to fetch countries", error);
+      }
+    };
+
+    fetchCountries();
+  }, []);
 
   const filtered = countries
     .filter((c) => c.name.common.toLowerCase().includes(search.toLowerCase()))
@@ -54,9 +67,9 @@ function CountryList() {
     <div className="p-4">
       <div className="flex flex-col gap-4 pb-4 md:flex-row md:items-center md:justify-between">
         <SearchBar
-          value={search}
+          value={searchInput}
           onChange={(val) => {
-            setSearch(val);
+            setSearchInput(val);
             setPage(1);
           }}
         />
