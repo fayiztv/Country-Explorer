@@ -45,7 +45,7 @@ const Favorites = () => {
     <div className="p-4">
       <h1 className="text-xl font-bold mb-4">Favorites ❤️</h1>
 
-      <div className="flex justify-between pb-4">
+      <div className="flex flex-col gap-4 pb-4 md:flex-row md:items-center md:justify-between">
         <SearchBar
           value={search}
           onChange={(val) => {
