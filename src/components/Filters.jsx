@@ -1,8 +1,8 @@
 const Filters = ({ region, setRegion, population, setPopulation }) => {
   return (
-    <div className="flex gap-4 flex-wrap">
+    <div className="flex flex-col gap-3 w-full md:flex-row md:w-auto">
       <select
-        className="border p-3"
+        className="border p-3 w-full"
         value={region}
         onChange={(e) => setRegion(e.target.value)}
       >
@@ -15,7 +15,7 @@ const Filters = ({ region, setRegion, population, setPopulation }) => {
       </select>
 
       <select
-        className="border p-2"
+        className="border p-2 w-full"
         value={population}
         onChange={(e) => setPopulation(e.target.value)}
       >
@@ -27,5 +27,6 @@ const Filters = ({ region, setRegion, population, setPopulation }) => {
     </div>
   );
 };
+
 
 export default Filters;

@@ -5,7 +5,7 @@ const SearchBar = ({ value, onChange }) => {
       placeholder="Search country..."
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="border p-2 w-full md:w-1/3"
+      className="border p-2 w-full md:max-w-sm"
     />
   );
 };

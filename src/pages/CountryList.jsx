@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { countriesAPI } from "../services/api";
+import { apiCache, countriesAPI } from "../services/api";
 import SearchBar from "../components/SearhBar";
 import Filters from "../components/Filters";
 import CountryCard from "../components/CountryCard";
@@ -12,12 +12,24 @@ function CountryList() {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    countriesAPI
-      .get(
-        "/all?fields=name,flags,capital,currencies,languages,region,subregion,population,timezones,cca3"
-      )
-      .then((res) => setCountries(res.data));
-  }, []);
+  const fetchCountries = async () => {
+    // Checck cache first
+    if (apiCache.countries) {
+      setCountries(apiCache.countries);
+      return;
+    }
+
+    try {
+      const res = await countriesAPI.get("/all?fields=name,flags,capital,currencies,languages,region,subregion,population,timezones,cca3");
+      apiCache.countries = res.data; // store in cache
+      setCountries(res.data);
+    } catch (error) {
+      console.error("Failed to fetch countries", error);
+    }
+  };
+
+  fetchCountries();
+}, []);
 
   const filtered = countries
     .filter((c) => c.name.common.toLowerCase().includes(search.toLowerCase()))
@@ -40,7 +52,7 @@ function CountryList() {
 
   return (
     <div className="p-4">
-      <div className="flex justify-between pb-4">
+      <div className="flex flex-col gap-4 pb-4 md:flex-row md:items-center md:justify-between">
         <SearchBar
           value={search}
           onChange={(val) => {
